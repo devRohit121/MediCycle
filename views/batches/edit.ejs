@@ -1,0 +1,105 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6 mt-6">
+
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+        Edit Batch
+    </h2>
+
+    <form method="POST" action="/batches/<%= batch._id %>?_method=PUT"
+          class="space-y-5">
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Medicine Name</label>
+            <input name="batch[name]" 
+                   value="<%= batch.name %>" 
+                   required
+                   class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <select name="batch[category]"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                <option value="Tablet" <%= batch.category === "Tablet" ? "selected" : "" %>>Tablet</option>
+                <option value="Capsule" <%= batch.category === "Capsule" ? "selected" : "" %>>Capsule</option>
+                <option value="Syrup" <%= batch.category === "Syrup" ? "selected" : "" %>>Syrup</option>
+                <option value="Injection" <%= batch.category === "Injection" ? "selected" : "" %>>Injection</option>
+                <option value="Ointment" <%= batch.category === "Ointment" ? "selected" : "" %>>Ointment</option>
+            </select>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Manufacturer</label>
+                <input name="batch[manufacturer]" 
+                       value="<%= batch.manufacturer %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Batch No</label>
+                <input name="batch[batchNo]" 
+                       value="<%= batch.batchNo %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Manufacturing Date</label>
+                <input type="date"
+                       name="batch[manufacturingDate]"
+                       value="<%= batch.manufacturingDate.toISOString().split('T')[0] %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Expiry Date</label>
+                <input type="date"
+                       name="batch[expiryDate]"
+                       value="<%= batch.expiryDate.toISOString().split('T')[0] %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Quantity</label>
+                <input type="number"
+                       name="batch[quantity]"
+                       value="<%= batch.quantity %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Unit Price</label>
+                <input type="number"
+                       name="batch[unitPrice]"
+                       value="<%= batch.unitPrice %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Discounted Price</label>
+                <input type="number"
+                       name="batch[discountedPrice]"
+                       value="<%= batch.discountedPrice %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-700 mb-1">Location</label>
+                <input name="batch[location]" 
+                       value="<%= batch.location %>"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+
+        </div>
+
+        <div class="pt-4">
+            <button type="submit"
+                    class="w-full md:w-auto px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                Update Batch
+            </button>
+        </div>
+
+    </form>
+</div>

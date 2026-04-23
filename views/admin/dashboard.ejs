@@ -1,0 +1,74 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
+    <p class="text-sm text-gray-500">System overview and quick actions</p>
+  </div>
+
+  <!-- ================= STATS ================= -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Users</p>
+      <p class="text-xl font-bold text-gray-800"><%= totalUsers %></p>
+    </div>
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Orders</p>
+      <p class="text-xl font-bold text-gray-800"><%= totalOrders %></p>
+    </div>
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Pending</p>
+      <p class="text-xl font-bold text-yellow-600"><%= pendingOrders %></p>
+    </div>
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Batches</p>
+      <p class="text-xl font-bold text-gray-800"><%= totalBatches %></p>
+    </div>
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Sellers</p>
+      <p class="text-xl font-bold text-green-600"><%= totalSeller %></p>
+    </div>
+
+    <div class="bg-white border rounded-xl p-4 text-center shadow-sm">
+      <p class="text-sm text-gray-500">Buyers</p>
+      <p class="text-xl font-bold text-blue-600"><%= totalBuyer %></p>
+    </div>
+
+  </div>
+
+  <!-- ================= ACTIONS ================= -->
+  <div class="bg-white border rounded-xl shadow-sm p-6">
+
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">
+      Quick Actions
+    </h2>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+      <a href="/admin/users"
+         class="block text-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+        Manage Users
+      </a>
+
+      <a href="/admin/orders"
+         class="block text-center bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+        View Orders
+      </a>
+
+      <a href="/admin/batches"
+         class="block text-center bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-900 transition">
+        View Inventory
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

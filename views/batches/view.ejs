@@ -1,0 +1,132 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+  <!-- Header -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Batch Details</h1>
+    <p class="text-gray-500 text-sm">View complete medicine batch information</p>
+  </div>
+
+  <!-- Main Card -->
+  <div class="bg-white shadow-md rounded-xl border border-gray-100 p-6">
+
+    <!-- Grid Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Medicine Name</p>
+        <p class="font-medium text-gray-800"><%= batch.name %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Category</p>
+        <p class="font-medium text-gray-800"><%= batch.category %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Manufacturer</p>
+        <p class="font-medium text-gray-800"><%= batch.manufacturer %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Batch Number</p>
+        <p class="font-medium text-gray-800"><%= batch.batchNo %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Manufacturing Date</p>
+        <p class="font-medium text-gray-800"><%= batch.manufacturingDate.toDateString() %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Expiry Date</p>
+        <p class="font-medium text-gray-800"><%= batch.expiryDate.toDateString() %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Quantity Available</p>
+        <p class="font-medium text-gray-800"><%= batch.quantity %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Location</p>
+        <p class="font-medium text-gray-800"><%= batch.location %></p>
+      </div>
+
+      <div class="p-3 bg-gray-50 rounded-lg">
+        <p class="text-sm text-gray-500">Unit Price</p>
+        <p class="font-medium text-gray-800">₹<%= batch.unitPrice %></p>
+      </div>
+
+      <div class="p-3 bg-green-50 rounded-lg">
+        <p class="text-sm text-green-600">Discounted Price</p>
+        <p class="font-semibold text-green-700">₹<%= batch.discountedPrice %></p>
+      </div>
+
+      <div class="p-3">
+        <span class="text-sm text-gray-500">Status</span>
+        <div>
+          <span class="inline-block mt-1 px-3 py-1 text-sm rounded-full
+            <%= batch.status === 'Available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600' %>">
+            <%= batch.status %>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <% if(currentUser.role == "buyer" && batch.status === "Available") { %>
+
+  <div class="mt-8 grid md:grid-cols-2 gap-6">
+
+    <!-- Add to Cart -->
+    <form method="POST" action="/cart/<%=batch._id%>"
+      class="bg-white border rounded-xl shadow-sm p-5 space-y-4">
+
+      <h2 class="text-lg font-semibold text-gray-800">Add to Cart</h2>
+
+      <div>
+        <label class="text-sm text-gray-600">Quantity</label>
+        <input type="number"
+               name="quantity"
+               min="1"
+               max="<%=batch.quantity%>"
+               required
+               class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        Add to Cart
+      </button>
+    </form>
+
+    <!-- Buy Now -->
+    <form method="POST" action="/orders/<%= batch._id %>"
+      class="bg-white border rounded-xl shadow-sm p-5 space-y-4">
+
+      <h2 class="text-lg font-semibold text-gray-800">Buy Now</h2>
+
+      <div>
+        <label class="text-sm text-gray-600">Quantity</label>
+        <input type="number"
+               name="quantityOrdered"
+               min="1"
+               required
+               class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+        Place Order
+      </button>
+    </form>
+
+  </div>
+
+  <% } %>
+
+</div>

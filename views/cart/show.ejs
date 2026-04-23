@@ -1,0 +1,112 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+
+  <!-- Header -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Your Cart</h1>
+    <p class="text-sm text-gray-500">Review items before checkout</p>
+  </div>
+
+  <% if(!cart || cart.length == 0 || !cart.items || cart.items.length === 0) { %>
+
+    <!-- Empty State -->
+    <div class="bg-white border rounded-xl shadow-sm p-10 text-center">
+      <div class="text-gray-400 text-lg font-medium">Cart is Empty</div>
+      <p class="text-sm text-gray-500 mt-1">Add medicines to proceed with checkout</p>
+    </div>
+
+  <% } else { %>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Items Section -->
+      <div class="lg:col-span-2 space-y-4">
+
+        <% cart.items.forEach(item => { %>
+
+          <div class="bg-white border rounded-xl shadow-sm p-5">
+
+            <!-- Item Header -->
+            <div class="flex justify-between items-start">
+              <h3 class="text-lg font-semibold text-gray-800">
+                <%= item.batch.name %>
+              </h3>
+
+              <form method="POST"
+                    action="/cart/<%= item.batch._id %>?_method=DELETE">
+                <button class="text-sm text-red-500 hover:text-red-700">
+                  Remove
+                </button>
+              </form>
+            </div>
+
+            <!-- Price Row -->
+            <div class="mt-4 space-y-2 text-sm">
+
+              <div class="flex justify-between text-gray-600">
+                <span>Price</span>
+                <span class="font-medium text-gray-800">
+                  ₹<%= item.batch.discountedPrice %>
+                </span>
+              </div>
+
+              <div class="flex justify-between text-gray-600">
+                <span>Quantity</span>
+                <span class="font-medium text-gray-800">
+                  <%= item.quantity %>
+                </span>
+              </div>
+
+              <div class="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span class="font-semibold text-gray-900">
+                  ₹<%= item.quantity * item.batch.discountedPrice %>
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+      <!-- Summary Section -->
+      <div class="bg-white border rounded-xl shadow-sm p-5 h-fit sticky top-6">
+
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">
+          Order Summary
+        </h2>
+
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>Items Total</span>
+          <span class="font-medium text-gray-800">₹<%= total %></span>
+        </div>
+
+        <div class="border-t my-4"></div>
+
+        <div class="flex justify-between text-base font-semibold text-gray-900 mb-6">
+          <span>Total</span>
+          <span>₹<%= total %></span>
+        </div>
+
+        <form method="POST" action="/cart/checkout">
+          <button
+            class="w-full bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 transition">
+            Place Order
+          </button>
+        </form>
+
+        <p class="text-xs text-gray-500 mt-3 text-center">
+          Secure checkout for all items
+        </p>
+
+      </div>
+
+    </div>
+
+  <% } %>
+
+</div>
