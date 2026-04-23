@@ -86,8 +86,6 @@ mongoose.connect(dbURL)
   .then(() => console.log('DB connected'))
   .catch(err => console.log(err));
 
- 
-
 app.use("/batches", batchRoutes);
 app.use("/orders", orderRoutes);
 app.use("/", authRoutes);
@@ -95,9 +93,7 @@ app.use("/seller", sellerRoutes);
 app.use("/cart", cartRoutes);
 app.use("/admin", adminRoutes);
 
-app.get("/", (req, res) => {
-  res.redirect("/batches");
-});
+
 
 app.listen(port, () => {
     console.log("server is running on port 8080");
