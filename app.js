@@ -51,7 +51,7 @@ store.on("error", (err) => {
 
 const sessionOptions = {
   store,
-  secret: process.env.SECRET,
+  secret: process.env.SECRET  ,
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -94,6 +94,10 @@ app.use("/", authRoutes);
 app.use("/seller", sellerRoutes);
 app.use("/cart", cartRoutes);
 app.use("/admin", adminRoutes);
+
+app.get("/", (req, res) => {
+  res.redirect("/batches");
+});
 
 app.listen(port, () => {
     console.log("server is running on port 8080");
