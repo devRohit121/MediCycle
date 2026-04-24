@@ -1,25 +1,23 @@
 <nav class="bg-white border-b shadow-sm sticky top-0 z-50">
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
-    <!-- Left: Brand -->
-    <div class="flex items-center">
-      <a href="/batches"
-         class="flex items-center gap-2 text-xl font-bold text-gray-800 z-10">
-        <img src="/logo/flogo.png" 
-             class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"/>
-      </a>
-    </div>
+    <!-- Brand -->
+    <a href="/batches"
+       class="flex items-center gap-2 text-xl font-bold text-gray-800">
+      <img src="/logo/flogo.png" 
+           class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"/>
+    </a>
 
-    <!-- Right: Hamburger (mobile) -->
+    <!-- Mobile Button (OUTSIDE anchor) -->
     <button type="button"
             id="menuBtn"
-            class="md:hidden ml-auto text-gray-700 focus:outline-none z-50">
+            class="md:hidden text-gray-700 focus:outline-none">
       <i class="fa-solid fa-bars text-xl"></i>
     </button>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-4 text-sm ml-auto">
+    <div class="hidden md:flex items-center gap-4 text-sm">
 
       <% if (!currentUser) { %>
 
@@ -138,7 +136,7 @@
   const menu = document.getElementById("mobileMenu");
 
   btn?.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevents accidental bubbling
+    e.stopPropagation();
     menu.classList.toggle("hidden");
   });
 </script>
