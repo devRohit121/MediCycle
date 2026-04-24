@@ -1,13 +1,19 @@
 module.exports = (schema) => {
     return (req, res, next) => {
         const data = req.body.batch || req.body;
+
         const { error, value } = schema.validate(data);
-        req.body = value;
 
         if (error) {
-            return res.status(400).json({
-                message: error.details.map(el => el.message)
-            });
+            const msg = error.details
+                .map(el => el.message.replace(/"/g, ""))
+                .join(", ");
+
+            req.flash("error", msg);
+
+            return res.redirect(req.originalUrl.includes("edit") 
+                ? req.originalUrl 
+                : "/batches/new");
         }
 
         req.body = value;
