@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const ejsMate = require("ejs-mate");
+const startExpiryJob = require("./jobs/expiryJob.js");
 
 const User = require("./models/user.js");
 
@@ -85,6 +86,10 @@ passport.deserializeUser(User.deserializeUser());
 mongoose.connect(dbURL)
   .then(() => console.log('DB connected'))
   .catch(err => console.log(err));
+
+
+startExpiryJob();
+
 
 app.use("/batches", batchRoutes);
 app.use("/orders", orderRoutes);

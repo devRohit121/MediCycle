@@ -6,7 +6,8 @@ exports.getAllBatches = async (req, res) => {
 
     const { search, category } = req.query;
     const query = {
-        expiryDate: { $gte: new Date() }
+        expiryDate: { $gte: new Date() },
+        quantity: { $gt: 0 }
     };
 
     if (search) {
