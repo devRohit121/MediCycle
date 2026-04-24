@@ -1,24 +1,25 @@
 <nav class="bg-white border-b shadow-sm sticky top-0 z-50">
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center relative">
 
-    <!-- Brand -->
-    <a href="/batches"
-       class="flex items-center gap-2 text-xl font-bold text-gray-800">
+    <!-- Left: Brand -->
+    <div class="flex items-center">
+      <a href="/batches"
+         class="flex items-center gap-2 text-xl font-bold text-gray-800 z-10">
+        <img src="/logo/flogo.png" 
+             class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"/>
+      </a>
+    </div>
 
-      <img src="/logo/flogo.png" 
-        class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"/>
-
-    </a>
-
-    <!-- Mobile button -->
-    <button id="menuBtn"
-            class="md:hidden text-gray-700 focus:outline-none">
+    <!-- Right: Hamburger (mobile) -->
+    <button type="button"
+            id="menuBtn"
+            class="md:hidden ml-auto text-gray-700 focus:outline-none z-50">
       <i class="fa-solid fa-bars text-xl"></i>
     </button>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-4 text-sm">
+    <div class="hidden md:flex items-center gap-4 text-sm ml-auto">
 
       <% if (!currentUser) { %>
 
@@ -35,13 +36,14 @@
         </a>
 
       <% } else { %>
+
         <a href="/batches" class="text-gray-600 hover:text-gray-900">Home</a>
 
         <% if (currentUser.role === "admin") { %>
           <a href="/admin" class="text-gray-600 hover:text-gray-900">
-          Dashboard
-        </a>
-      <% } %>
+            Dashboard
+          </a>
+        <% } %>
 
         <% if (currentUser.role === "seller") { %>
           <a href="/batches/new" class="text-gray-600 hover:text-gray-900">
@@ -93,14 +95,18 @@
 
       <a href="/batches" class="block text-gray-700">Home</a>
 
-      <a href="/signup" class="block bg-gray-100 px-3 py-2 rounded-lg">Sign up</a>
+      <a href="/signup" class="block bg-gray-100 px-3 py-2 rounded-lg">
+        Sign up
+      </a>
 
-      <a href="/login" class="block bg-blue-600 text-white px-3 py-2 rounded-lg">Log in</a>
+      <a href="/login" class="block bg-blue-600 text-white px-3 py-2 rounded-lg">
+        Log in
+      </a>
 
     <% } else { %>
 
-      <% if (currentUser.role !== "seller" && currentUser.role !== "buyer") { %>
-        <a href="/admin" class="block text-gray-700">DashBoard</a>
+      <% if (currentUser.role === "admin") { %>
+        <a href="/admin" class="block text-gray-700">Dashboard</a>
       <% } %>
 
       <% if (currentUser.role === "seller") { %>
@@ -120,20 +126,19 @@
 
       <a href="/logout" class="block text-red-600">Logout</a>
 
-      
-
     <% } %>
 
   </div>
 
 </nav>
 
-<!-- JS Toggle -->
+<!-- JS -->
 <script>
   const btn = document.getElementById("menuBtn");
   const menu = document.getElementById("mobileMenu");
 
-  btn?.addEventListener("click", () => {
+  btn?.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevents accidental bubbling
     menu.classList.toggle("hidden");
   });
 </script>
