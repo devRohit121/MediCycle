@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const Inventory = require("../models/inventory");
 
 function startExpiryJob() {
-    cron.schedule('0 * * * *', async () => {
+    cron.schedule('*/2 * * * *', async () => {
         const now = new Date();
 
         try {
