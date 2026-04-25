@@ -100,7 +100,7 @@ exports.getSellerOrders = async (req, res) => {
                 { $group: { _id: null, total: { $sum: "$totalAmount" } } }
 ]);
 
-        const totalEarning = revenue[0].total;
+        const totalEarning = revenue?.[0]?.total || 0;
 
         res.render("seller/orders.ejs", { pendingOrders, processedOrders, completedOrders, pending, accepted, rejected, completed, totalEarning });
     } catch(err) {
