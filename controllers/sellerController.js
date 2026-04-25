@@ -18,7 +18,6 @@ exports.sellerDashBoard = async(req, res) => {
 
     let medis = await Inventory.find({ 
         seller: req.user._id,
-        expiryDate: { $gte: new Date() }
             })
             .skip(skip)
             .limit(limit);
