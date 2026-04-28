@@ -76,6 +76,8 @@ exports.createBatch = async (req, res) => {
         
         newBatch.seller = req.user._id;
         await newBatch.save();
+
+        req.flash("success", "Batch Added Successfully")
         res.redirect("/batches");
     } catch(err) {
         console.log(err);
@@ -139,6 +141,7 @@ exports.updateBatch = async (req, res) => {
         new: true,
         runValidators: true
     })
+    req.flash("success", "Batch Updated Successfully");
     res.redirect("/seller/dashBoard");
     } catch (err) {
         console.log(err);
@@ -150,5 +153,6 @@ exports.updateBatch = async (req, res) => {
 exports.deleteBatch = async(req, res) => {
     let { id } = req.params;
     await Inventory.findByIdAndDelete(id);
+    req.flash("success", "Batch deleted Successfully");
     res.redirect("/batches");
 };
