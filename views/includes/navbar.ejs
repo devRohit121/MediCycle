@@ -9,12 +9,40 @@
            class="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"/>
     </a>
 
-    <!-- Mobile Button (OUTSIDE anchor) -->
-    <button type="button"
-            id="menuBtn"
-            class="md:hidden text-gray-700 focus:outline-none">
-      <i class="fa-solid fa-bars text-xl"></i>
-    </button>
+    <!-- Right Controls -->
+    <div class="flex items-center gap-3">
+
+      <% if (!currentUser) { %>
+
+        <!-- Guest: Always visible -->
+        <a href="/login"
+           class="md:hidden px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          Login
+        </a>
+
+        <a href="/signup"
+           class="md:hidden px-3 py-1.5 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+          Signup
+        </a>
+
+      <% } else { %>
+
+        <!-- Logged-in: Always visible -->
+        <a href="/logout"
+           class="md:hidden px-3 py-1.5 text-sm bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+          Logout
+        </a>
+
+      <% } %>
+
+      <!-- Hamburger -->
+      <button type="button"
+              id="menuBtn"
+              class="md:hidden text-gray-700 focus:outline-none">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+
+    </div>
 
     <!-- Desktop Menu -->
     <div class="hidden md:flex items-center gap-4 text-sm">
@@ -89,19 +117,7 @@
   <div id="mobileMenu"
        class="hidden md:hidden px-4 pb-4 space-y-3 text-sm border-t">
 
-    <% if (!currentUser) { %>
-
-      <a href="/batches" class="block text-gray-700">Home</a>
-
-      <a href="/signup" class="block bg-gray-100 px-3 py-2 rounded-lg">
-        Sign up
-      </a>
-
-      <a href="/login" class="block bg-blue-600 text-white px-3 py-2 rounded-lg">
-        Log in
-      </a>
-
-    <% } else { %>
+    <% if (currentUser) { %>
 
       <% if (currentUser.role === "admin") { %>
         <a href="/admin" class="block text-gray-700">Dashboard</a>
@@ -122,7 +138,10 @@
         </a>
       <% } %>
 
-      <a href="/logout" class="block text-red-600">Logout</a>
+    <% } else { %>
+
+      <!-- Guest -->
+      <a href="/batches" class="block text-gray-700">Home</a>
 
     <% } %>
 
@@ -138,5 +157,10 @@
   btn?.addEventListener("click", (e) => {
     e.stopPropagation();
     menu.classList.toggle("hidden");
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", () => {
+    menu.classList.add("hidden");
   });
 </script>
